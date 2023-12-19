@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2 class="text-dark mt-5">Register Form</h2>
+      <div class="card-login my-5">
+
+        <form [formGroup]="registerForm" (ngSubmit)="RegisTer()" class="card-body cardbody-color p-lg-5">
+
+          <div class="text-center">
+            <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+              width="150px" alt="profile">
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="user">
+            
+            <label for="floatingInput">User</label>
+            <div *ngIf="registerForm.controls.user.invalid && registerForm.controls.user.touched" class="text-danger">
+              User is required
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingPassword" placeholder="Password" formControlName="email">
+            <label for="floatingPassword">Email Address</label>
+            <div *ngIf="registerForm.controls.email.invalid && registerForm.controls.email.touched" class="text-danger">
+            email is not in correct format
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="pass">
+            <label for="floatingPassword">Password</label>
+            <div *ngIf="registerForm.controls.pass.invalid && registerForm.controls.pass.touched" class="text-danger">
+              pasword is not in correct format
+              </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="confirmPass">
+            <label for="floatingPassword">Confirm Password</label>
+            <div *ngIf="registerForm.errors?.passwordMismatch && registerForm.controls.confirmPass.touched" class="text-danger">
+              Passwords do not match
+            </div>
+          </div>
+          <div class="text-center"><button type="submit" class="btn btn-color px-5 mb-5 w-100" [disabled]="!myForm.valid">Register</button></div>
+          <div id="emailHelp" class="form-text text-center mb-5 text-dark">login to here > <a routerLink="/login" href="" class="create-ac text-dark fw-bold "> Back to login</a>
+          </div>
+          <a routerLink="/" href="" class="create-ac text-dark fw-bold ">← Back to home</a>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

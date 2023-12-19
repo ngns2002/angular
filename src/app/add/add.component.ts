@@ -5,10 +5,9 @@ import { CurdService } from 'src/app/service/curd.service';
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
-  styleUrls: ['./add.component.css']
+  styleUrls: ['./add.component.css'],
 })
 export class AddComponent {
-
   taskObj: Task = new Task();
   taskArr: Task[] = [];
 
@@ -16,6 +15,8 @@ export class AddComponent {
   addPassValue: string = '';
   addEmailValue: string = '';
   editTaskValue: string = '';
+  showBackToHomeLink: boolean = false;
+  showValidators: boolean = true;
 
   constructor(private crudService: CurdService) {}
 
@@ -27,18 +28,22 @@ export class AddComponent {
     this.taskObj = new Task();
     this.taskArr = [];
   }
-
   addTask() {
     this.taskObj.user = this.addTaskValue;
     this.taskObj.email = this.addEmailValue;
     this.taskObj.pass = this.addPassValue;
-    this.crudService.addTask(this.taskObj).subscribe(res => {
-      this.taskArr.push(res); // Thêm vào mảng để hiển thị ngay lập tức
-      this.addTaskValue = ''; // Xóa giá trị nhập
-      this.addEmailValue = '';
-      this.addPassValue = '';
-    }, err => {
-      alert(err);
-    })
+    this.crudService.addTask(this.taskObj).subscribe(
+      (res) => {
+        this.taskArr.push(res); // Thêm vào mảng để hiển thị ngay lập tức
+        this.addTaskValue = ''; // Xóa giá trị nhập
+        this.addEmailValue = '';
+        this.addPassValue = '';
+        this.showBackToHomeLink = true;
+        this.showValidators = false;
+      },
+      (err) => {
+        alert(err);
+      }
+    );
   }
 }

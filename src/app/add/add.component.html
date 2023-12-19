@@ -1,11 +1,78 @@
 <div class="card2 bg-success mt-4">
-    <h4 class="text-white p-3 pt-2 pb-2">Add User</h4>
+  <h4 class="text-white p-3 pt-2 pb-2">Add User</h4>
 </div>
 <div class="shadow">
-    <div class="input-group p-4">
-        <input type="text" class="form-control" placeholder="add user" name="user" [(ngModel)]="addTaskValue">
-        <input type="text" class="form-control" placeholder="add Email" name="pass" [(ngModel)]="addEmailValue">
-        <input type="text" class="form-control" placeholder="add password" name="pass" [(ngModel)]="addPassValue">
-        <button class="btn btn2" type="button" (click)="addTask()"><i class="fa-solid fa-circle-plus"></i></button>
+  <div class="input-group p-4">
+    <form #myForm="ngForm" class="form-v2">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="add user"
+        name="user"
+        [(ngModel)]="addTaskValue"
+        required
+      />
+      <div
+        *ngIf="
+          showValidators &&
+          myForm.controls['user'].invalid &&
+          myForm.controls['user'].touched
+        "
+        class="validator_error"
+      >
+        User is required.
       </div>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="add Email"
+        name="email"
+        [(ngModel)]="addEmailValue"
+        required
+        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+      />
+      <div
+        *ngIf="
+          showValidators &&
+          myForm.controls['email'].invalid &&
+          myForm.controls['email'].touched
+        "
+        class="validator_error"
+      >
+        Email must be in the format: yourname@angular.com
+      </div>
+      <input
+        type="password"
+        class="form-control"
+        placeholder="add password"
+        name="pass"
+        [(ngModel)]="addPassValue"
+        required
+        minlength="6"
+      />
+      <div
+        *ngIf="
+          showValidators &&
+          myForm.controls['pass'].invalid &&
+          myForm.controls['pass'].touched
+        "
+        class="validator_error"
+      >
+        Password must be at least 6 characters long.
+      </div>
+    </form>
+    <button
+      class="btn btn2"
+      type="button"
+      (click)="addTask()"
+      [disabled]="!myForm.valid"
+    >
+      <i class="fa-solid fa-circle-plus"></i>
+    </button>
+  </div>
+  <div class="error-from" *ngIf="showBackToHomeLink">
+    More success do you want to come back? &nbsp;<a routerLink="/"
+      >back to home →</a
+    >
+  </div>
 </div>

@@ -1,0 +1,27 @@
+.btn-color{
+    background-color: #0e1c36;
+    color: #fff;
+    
+  }
+  
+  .profile-image-pic{
+    object-fit: cover;
+  }
+  
+  .card-login{
+    width: 50%;
+  }
+  .text-dark {
+    width: 48%;
+    text-align: center;
+}
+  .cardbody-color{
+    background-color: #ebf2fa;
+  }
+  
+  a{
+    text-decoration: none;
+  }
+.create-ac:hover{
+    color: blue !important;
+}

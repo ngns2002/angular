@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from 'src/app/model/task';
 import { CurdService } from 'src/app/service/curd.service';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-dashboard',
@@ -16,8 +17,11 @@ export class DashboardComponent implements OnInit {
   addPassValue: string = '';
   addEmailValue: string = '';
   editTaskValue: string = '';
+  editEmailValue: string = '';
+  editPassValue: string = '';
 
-  constructor(private crudService: CurdService) {}
+
+  constructor(private crudService: CurdService, private router:Router) {}
 
   ngOnInit(): void {
     this.editTaskValue = '';
@@ -45,15 +49,23 @@ export class DashboardComponent implements OnInit {
       this.taskArr.push(res); // Thêm vào mảng để hiển thị ngay lập tức
       this.addTaskValue = ''; // Xóa giá trị nhập
       this.addPassValue = '';
+      this.editTaskValue = '';
     }, err => {
       alert(err);
     })
   }
   editTask() {
     this.taskObj.user = this.editTaskValue;
-    this.crudService.editTask(this.taskObj).subscribe(res => {
-      this.ngOnInit();
-    }, err=> {
+    this.taskObj.email = this.editEmailValue;
+    this.taskObj.pass = this.editPassValue;
+
+    this.crudService.editTask(this.taskObj).subscribe(
+      (res) => {
+        this.ngOnInit();
+        this.editTaskValue = ''; // Xóa giá trị nhập
+        this.editEmailValue = ''; // Xóa giá trị nhập
+        this.editPassValue = ''; // Xóa giá trị nhập
+      }, err=> {
       alert("Failed to update task");
     })
   }
@@ -68,6 +80,14 @@ export class DashboardComponent implements OnInit {
   call(etask : Task) {
     this.taskObj = etask;
     this.editTaskValue = etask.user;
-    this.addPassValue = etask.pass;
+    this.editEmailValue = etask.email;
+    this.editPassValue = etask.pass;
+  }
+  logout(): void {
+    // Remove login info from storage
+    localStorage.removeItem('loginInfo');
+
+    // Redirect to login page
+    this.router.navigate(['/login']);
   }
 }
