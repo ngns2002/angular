@@ -69,7 +69,7 @@ imageSrc = 'https://avatars.githubusercontent.com/u/69605874?s=400&u=bca1d8dedb5
 
   logout() {
     // Xóa dữ liệu khỏi Local Storage
-    localStorage.removeItem('user');
+   localStorage.clear();
   
     // Chuyển hướng người dùng về trang đăng nhập
     this.router.navigate(['/login']);
