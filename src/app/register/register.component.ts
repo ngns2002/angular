@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 // Password match validator
 export function passwordMatchValidator(g: FormGroup) {
@@ -14,6 +15,7 @@ export function passwordMatchValidator(g: FormGroup) {
 
   return { 'mismatch': true };
 }
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -21,6 +23,15 @@ export function passwordMatchValidator(g: FormGroup) {
 })
 export class RegisterComponent implements OnInit {
 [x: string]: any;
+
+  hide = true;
+  hidePass = true;
+  hideConfirmPass = true;
+  imageSrc = 'https://avatars.githubusercontent.com/u/69605874?s=400&u=bca1d8dedb5375d2ad9f8529acad13d656293cf4&v=4'; 
+  defaultImageSrc = 'https://avatars.githubusercontent.com/u/69605874?s=400&u=bca1d8dedb5375d2ad9f8529acad13d656293cf4&v=4'; 
+  passwordImageSrc = 'https://i.imgur.com/vTyz0Q7.png';
+  confirmPassImageSrc = 'https://i.imgur.com/vTyz0Q7.png';
+
   registerForm!: FormGroup;
 
   constructor(
@@ -40,20 +51,97 @@ export class RegisterComponent implements OnInit {
 
   RegisTer() {
     if (this.registerForm.invalid) {
-      alert('Please correct the errors in the form');
+      Swal.fire({
+        icon: "error",
+        title: "Ohh no Please check your email again and confirm Password",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+      });
       return;
     }
-
-    this._http.post<any>('http://localhost:3000/user', this.registerForm.value)
+  
+    const user = this.registerForm.value;
+    user.isLoggedIn = true; // Set isLoggedIn to true when user registers
+  
+    // Add role based on email address
+    if (user.email.endsWith('@angular.com')) {
+      user.role = 'admin';
+    } else {
+      user.role = 'user';
+    }
+  
+    this._http.post<any>('http://localhost:3000/user', user)
       .subscribe(
         (res) => {
-          alert('register success ');
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+          Toast.fire({
+            icon: "success",
+            title: "register in successfully"
+          });
+          localStorage.setItem('user', JSON.stringify(user)); // Save user info to localStorage
           this.registerForm.reset();
           this.router.navigate(['login']);
         },
         (err) => {
-          alert('login fail');
+          Swal.fire({ // Thay alert bằng Swal.fire
+            title: "Your fail",
+            text: "The account does not exist",
+            icon: "error"
+          });
         }
       );
   }
-}
+  
+  logout() {
+    // Xóa dữ liệu khỏi Local Storage
+    localStorage.removeItem('user');
+  
+    // Chuyển hướng người dùng về trang đăng nhập
+    this.router.navigate(['/login']);
+  }
+  changeImage() {
+    this.imageSrc = 'https://i.imgur.com/vTyz0Q7.png'; // Thay đổi URL của hình ảnh khi nhấp vào ô mật khẩu
+  }
+
+  resetImage() {
+    this.imageSrc = 'https://avatars.githubusercontent.com/u/69605874?s=400&u=bca1d8dedb5375d2ad9f8529acad13d656293cf4&v=4'; // Đặt lại URL của hình ảnh khi nhấp ra ngoài
+  }
+  changeImagePass() {
+    this.imageSrc = this.passwordImageSrc;
+  }
+
+  resetImagePass() {
+    this.imageSrc = this.defaultImageSrc;
+  }
+
+  changeImageConfirmPass() {
+    this.imageSrc = this.confirmPassImageSrc;
+  }
+
+  resetImageConfirmPass() {
+    this.imageSrc = this.defaultImageSrc;
+  }
+  }
+  

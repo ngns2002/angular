@@ -25,3 +25,8 @@
 .create-ac:hover{
     color: blue !important;
 }
+.h2-register{
+  font-size: 40px;
+  font-weight: 700;
+  color: #fff !important;
+}

@@ -1,59 +1,22 @@
 {
   "user": [
     {
-      "id": 41,
-      "user": "12333",
-      "email": "sondzk58@gmail.com",
-      "pass": "242141212"
-    },
-    {
-      "id": 42,
-      "user": "12333",
-      "email": "thuvanhoang1234@gmail.com",
-      "pass": "15312421"
-    },
-    {
-      "id": 44,
-      "user": "12333",
-      "email": "lebin2271996@gmail.com",
-      "pass": "42124213"
-    },
-    {
-      "id": 45,
-      "user": "12333",
-      "email": "sondzk58@gmail.com",
-      "pass": "4231231"
-    },
-    {
-      "id": 46,
-      "user": "12333",
-      "email": "thuvanhoang1234@gmail.com",
-      "pass": "424313123"
-    },
-    {
-      "id": 47,
-      "user": "5151414",
-      "email": "lebin2271996@gmail.com",
-      "pass": "23412312"
+      "user": "ngns",
+      "email": "fasd@angular.com",
+      "pass": "110702",
+      "confirmPass": "110702",
+      "isLoggedIn": true,
+      "role": "admin",
+      "id": 1
     },
     {
       "user": "ngns@gmail.com",
-      "email": "ngns@gmail.com",
+      "email": "123@angular.com",
       "pass": "110702",
-      "id": 49
-    },
-    {
-      "user": "ewqeqwe",
-      "email": "ngns@gmail.com",
-      "pass": "000",
-      "id": 50
-    },
-    {
-      "user": "ewqeqwe",
-      "email": "fasd@gmail.com",
-      "pass": "123123",
-      "confirmPass": "123123",
-      "id": 51
+      "confirmPass": "110702",
+      "isLoggedIn": true,
+      "role": "admin",
+      "id": 2
     }
   ],
   "register": [

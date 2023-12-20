@@ -6,14 +6,14 @@
             <div class="col-md-6 bg-white shadow">
                 <a routerLink="/add"><i class="icon2 fa-solid fa-circle-plus"></i></a>
                 <button class="btn btn-primary2" data-bs-toggle="modal" data-bs-target="#profileModal">
-                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <i class="icon-logout fa-solid fa-right-from-bracket"></i>
                 </button>
                 <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="profileModalLabel">Profile Information</h5>
+                                <h5 class="modal-title" id="profileModalLabel">Are you sure?</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -34,7 +34,8 @@
                             <div class="input-group row ps-3">
                                 <div class="card col-md-10 border-0" > User:&nbsp;{{task.user}} </div><br>
                                 <div class="card col-md-10 border-0"> Email:&nbsp;{{task.email}}</div><br>
-                                <div class="card col-md-10 border-0"> Password:&nbsp;{{task.pass}}</div><br>
+                                <div class="card col-md-10 border-0"> Password:&nbsp;{{task.pass}}</div>
+                                <div class="card col-md-10 border-0"> {{task.role}}</div>
                                 <button class="btn btn-outline-primary col me-2" data-bs-toggle="modal" type="button"
                                     data-bs-target="#exampleModal" (click)="call(task)">
                                     <i class="fa-solid fa-user-pen"></i></button>

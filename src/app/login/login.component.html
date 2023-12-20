@@ -1,24 +1,27 @@
 <div class="container">
     <div class="row">
       <div class="col-md-6 offset-md-3">
-        <h2 class="text-dark mt-5">Login Form</h2>
+        <h2 class="h2-login text-dark mt-5">Login</h2>
         <div class="card-login my-5">
 
           <form [formGroup]="loginFrom" (ngSubmit)="logincup()" class="card-body cardbody-color p-lg-5">
 
             <div class="text-center">
-              <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+              <img [src]="imageSrc" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3 animate-image"
                 width="150px" alt="profile">
             </div>
-
             <div class="form-floating mb-3">
                 <input formControlName="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                 <label for="floatingInput">Email address</label>
               </div>
-              <div class="form-floating mb-3">
-                <input formControlName="pass" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+              <div class="form-floating mb-3 position-relative">
+               <input formControlName="pass" [type]="hide ? 'password' : 'text'" class="form-control" id="floatingPassword" placeholder="Password"
+                (focus)="changeImage()" (blur)="resetImage()">
                 <label for="floatingPassword">Password</label>
-              </div>
+                <button type="button" (click)="hide = !hide"(focus)="changeImage()" (blur)="resetImage()" class="position-absolute top-50 end-0 translate-middle-y btn btn-light">
+                  <i (blur)="resetImage()" class=" fa" [ngClass]="{'fa-eye': hide, 'fa-eye-slash': !hide}"></i>
+                </button>
+              </div>              
             <div class="text-center"><button type="submit" class="btn btn-color px-5 mb-5 w-100">Login</button></div>
             <div id="emailHelp" class="form-text text-center mb-5 text-dark">Not
               Registered? <a routerLink="/register" href="" class="create-ac text-dark fw-bold "> Create an

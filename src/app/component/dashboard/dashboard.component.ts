@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
 
   taskObj: Task = new Task();
   taskArr: Task[] = [];
+  hide = true;
 
   addTaskValue: string = '';
   addPassValue: string = '';
@@ -19,7 +20,6 @@ export class DashboardComponent implements OnInit {
   editTaskValue: string = '';
   editEmailValue: string = '';
   editPassValue: string = '';
-
 
   constructor(private crudService: CurdService, private router:Router) {}
 
@@ -45,6 +45,14 @@ export class DashboardComponent implements OnInit {
     this.taskObj.user = this.addTaskValue;
     this.taskObj.email = this.addEmailValue;
     this.taskObj.pass = this.addPassValue;
+
+    // Add role based on email address
+    if (this.taskObj.email.endsWith('@angular')) {
+      this.taskObj.role = 'admin';
+    } else {
+      this.taskObj.role = 'email';
+    }
+
     this.crudService.addTask(this.taskObj).subscribe(res => {
       this.taskArr.push(res); // Thêm vào mảng để hiển thị ngay lập tức
       this.addTaskValue = ''; // Xóa giá trị nhập
@@ -58,6 +66,13 @@ export class DashboardComponent implements OnInit {
     this.taskObj.user = this.editTaskValue;
     this.taskObj.email = this.editEmailValue;
     this.taskObj.pass = this.editPassValue;
+
+    // Add role based on email address
+    if (this.taskObj.email.endsWith('@angular')) {
+      this.taskObj.role = 'admin';
+    } else {
+      this.taskObj.role = 'email';
+    }
 
     this.crudService.editTask(this.taskObj).subscribe(
       (res) => {

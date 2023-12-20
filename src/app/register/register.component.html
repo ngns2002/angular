@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      <h2 class="text-dark mt-5">Register Form</h2>
+      <h2 class="h2-register text-dark mt-5">Register</h2>
       <div class="card-login my-5">
 
         <form [formGroup]="registerForm" (ngSubmit)="RegisTer()" class="card-body cardbody-color p-lg-5">
 
           <div class="text-center">
-            <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+            <img [src]="imageSrc" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3 animate-image"
               width="150px" alt="profile">
           </div>
           <div class="form-floating mb-3">
@@ -26,15 +26,22 @@
             </div>
           </div>
           <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="pass">
-            <label for="floatingPassword">Password</label>
-            <div *ngIf="registerForm.controls.pass.invalid && registerForm.controls.pass.touched" class="text-danger">
-              pasword is not in correct format
-              </div>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="confirmPass">
-            <label for="floatingPassword">Confirm Password</label>
+            <div class="form-floating mb-3 position-relative">
+              <input formControlName="pass" [type]="hidePass ? 'password' : 'text'" class="form-control" id="floatingPassword" placeholder="Password"
+               (focus)="changeImagePass()" (blur)="resetImagePass()">
+               <label for="floatingPassword">Password</label>
+               <button type="button" (click)="hidePass = !hidePass" (focus)="changeImage()" (blur)="resetImage()" class="position-absolute top-50 end-0 translate-middle-y btn btn-light">
+                 <i (blur)="resetImage()" class="fa" [ngClass]="{'fa-eye': hidePass, 'fa-eye-slash': !hidePass}"></i>
+               </button>
+            </div>     
+            <div class="form-floating mb-3 position-relative">
+              <input formControlName="confirmPass" [type]="hideConfirmPass ? 'password' : 'text'" class="form-control" id="floatingConfirmPassword" placeholder="Confirm Password"
+               (focus)="changeImageConfirmPass()" (blur)="resetImageConfirmPass()">
+               <label for="floatingConfirmPassword">Confirm Password</label>
+               <button type="button" (click)="hideConfirmPass = !hideConfirmPass" (focus)="changeImage()" (blur)="resetImage()" class="position-absolute top-50 end-0 translate-middle-y btn btn-light">
+                 <i (blur)="resetImage()" class="fa" [ngClass]="{'fa-eye': hideConfirmPass, 'fa-eye-slash': !hideConfirmPass}"></i>
+               </button>
+            </div>     
             <div *ngIf="registerForm.errors?.passwordMismatch && registerForm.controls.confirmPass.touched" class="text-danger">
               Passwords do not match
             </div>

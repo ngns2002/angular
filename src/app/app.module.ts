@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component'; 
 
+
 @NgModule({
   declarations: [
     AppComponent,

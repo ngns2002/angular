@@ -25,3 +25,12 @@
 .create-ac:hover{
     color: blue !important;
 }
+.button_hide{
+  border: none;
+}
+.h2-login{
+  font-size: 40px;
+  font-weight: 700;
+  color: #fff !important;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
