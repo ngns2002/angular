@@ -100,9 +100,7 @@ export class DashboardComponent implements OnInit {
   }
   logout(): void {
     // Remove login info from storage
-    localStorage.removeItem('loginInfo');
-
-    // Redirect to login page
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 }
