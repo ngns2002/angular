@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-login',
@@ -46,7 +47,8 @@ imageSrc = 'https://avatars.githubusercontent.com/u/69605874?s=400&u=bca1d8dedb5
         title: "Login success"
       });
       user.isLoggedIn = true; // Set isLoggedIn to true when user logs in
-      localStorage.setItem('user', JSON.stringify(user)); // Save user info to localStorage
+      const encryptedAuthToken = CryptoJS.AES.encrypt(JSON.stringify(user), 'UbuntuHaha').toString(); // Encrypt user info before saving to localStorage
+      localStorage.setItem('authToken', encryptedAuthToken); // Save encrypted user info to localStorage
       this.loginFrom.reset();
       this.router.navigate(['dashboard'])
     }
@@ -69,7 +71,7 @@ imageSrc = 'https://avatars.githubusercontent.com/u/69605874?s=400&u=bca1d8dedb5
 
   logout() {
     // Xóa dữ liệu khỏi Local Storage
-   localStorage.clear();
+    localStorage.clear();
   
     // Chuyển hướng người dùng về trang đăng nhập
     this.router.navigate(['/login']);
