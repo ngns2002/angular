@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import * as CryptoJS from 'crypto-js';
 
 // Password match validator
 export function passwordMatchValidator(g: FormGroup) {
@@ -100,24 +101,23 @@ export class RegisterComponent implements OnInit {
             icon: "success",
             title: "register in successfully"
           });
-          localStorage.setItem('user', JSON.stringify(user)); // Save user info to localStorage
+          const encryptedAuthToken = CryptoJS.AES.encrypt(JSON.stringify(user), 'ubuntuhaha').toString(); // Encrypt user info before saving to localStorage
+          localStorage.setItem('authToken', encryptedAuthToken); // Save encrypted user info to localStorage
           this.registerForm.reset();
           this.router.navigate(['login']);
         },
         (err) => {
           Swal.fire({ // Thay alert bằng Swal.fire
-            title: "Your fail",
-            text: "The account does not exist",
+            title: "Server Error",
+            text: "server error! Please Run server",
             icon: "error"
           });
         }
       );
   }
-  
   logout() {
     // Xóa dữ liệu khỏi Local Storage
-    localStorage.removeItem('user');
-  
+    localStorage.clear();
     // Chuyển hướng người dùng về trang đăng nhập
     this.router.navigate(['/login']);
   }
